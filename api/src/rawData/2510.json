@@ -1,0 +1,32 @@
+{
+    "url": "https://resultsapi.herokuapp.com/tournaments/2510",
+    "id": 2510,
+    "tournament_name": "56th USA Archery Indoor Nationals - Combined Results",
+    "location": "United States",
+    "start_date": "2025-01-10",
+    "end_date": "2025-02-23",
+    "updated_at": "2025-03-04T02:42:04.688Z",
+    "limg": "main_logo.png",
+    "rimg": null,
+    "bimg": "bottom_banner.jpg",
+    "msg": "",
+    "msg_link": "",
+    "events": [
+        {
+            "id": 4221,
+            "display_order": 1,
+            "event_type": "CombinedRankingEvent",
+            "event_name": "Combined Class and Division Results",
+            "msg": "",
+            "msg_link": ""
+        },
+        {
+            "id": 4222,
+            "display_order": 2,
+            "event_type": "CombinedRankingEvent",
+            "event_name": "Combined Finals Rankings",
+            "msg": "",
+            "msg_link": ""
+        }
+    ]
+}
