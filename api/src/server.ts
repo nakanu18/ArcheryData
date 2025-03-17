@@ -10,11 +10,6 @@ const CACHE_TTL = 3600;
 
 app.use(express.json()); // Middleware to parse JSON bodies
 
-// if (process.env.NODE_ENV === 'development') {
-//   console.log("API: flushing Redis cache");
-//   redisClient.flushall();
-// }
-
 type Roster = {
   url: string;
   id: number;
@@ -51,15 +46,80 @@ type Scores = {
   };
 }
 
-app.get('/api/scores', async (req: Request, res: Response) => {
+//
+// Processed Data Types
+//
+
+type Archer = {
+  aid: number;
+  firstName: string;
+  lastName: string;
+  competitions: {
+    id: number;
+    name: string;
+    category: string;
+    arrows: string;
+    score: number;
+  }[];
+}
+
+if (process.env.NODE_ENV === 'development') {
+  console.log("API: flushing Redis cache");
+  redisClient.flushall();
+}
+
+app.get('/api/bm', async (req: Request, res: Response) => {
+  const rosterURL = 'https://resultsapi.herokuapp.com/events/4221';
+  const scoresURL = 'https://resultsapi.herokuapp.com/events/4221/scores';
+
+  try {
+    const [roster, scores]: [Roster, Scores] = await Promise.all([
+      fetchOrCacheData(rosterURL, 'roster'),
+      fetchOrCacheData(scoresURL, 'scores_4221')
+    ]);
+
+    const barebowSeniorMen = roster.cgs.find(group => group.nm === 'Barebow Senior Men');
+    if (!barebowSeniorMen) {
+      throw new Error('Barebow Senior Men category not found');
+    }
+
+    const archers: Archer[] = barebowSeniorMen.ars.map(ar => {
+      const participant = roster.rps[ar.aid];
+      return {
+        aid: participant.aid,
+        firstName: participant.fnm,
+        lastName: participant.lnm,
+        competitions: [{
+          id: roster.id,
+          name: roster.enm,
+          category: barebowSeniorMen.nm,
+          arrows: scores.ars[participant.aid],
+          score: sumNumericValues(scores.ars[participant.aid])
+        }]
+      };
+    });
+
+    res.json(archers);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Error fetching data' });
+  }
+});
+
+app.get('/api/bm/alex', async (req: Request, res: Response) => {
   try {
     const rosterURL = 'https://resultsapi.herokuapp.com/events/4221';
     const scoresURL = 'https://resultsapi.herokuapp.com/events/4221/scores';
 
-    const roster: Roster = await fetchOrCacheData(rosterURL, 'roster');
-    const scores: Scores = await fetchOrCacheData(scoresURL, 'scores');
+    const [roster, scores]: [Roster, Scores] = await Promise.all([
+      fetchOrCacheData(rosterURL, 'roster'),
+      fetchOrCacheData(scoresURL, 'scores_4221')
+    ]);
 
     const aid = findAidByName(roster, 'Alex', 'de Vera');
+    if (aid === -1) {
+      throw new Error('Player not found');
+    }
     console.log("API: Player 1", aid);
     console.log("API: Player 1", roster.rps[aid]);
     console.log("API: Player 1", sumNumericValues(scores.ars[aid]));
@@ -123,11 +183,3 @@ function sumNumericValues(input: string): number {
   // Sum all the values
   return scores.reduce((acc, score) => acc + score, 0);
 }
-
-// Example usage
-// console.log(sumNumericValues("123")); // 6
-// console.log(sumNumericValues("M12T3")); // 16
-// console.log(sumNumericValues("987M65T")); // 45
-// console.log(sumNumericValues("TMMM9")); // 19
-// console.log(sumNumericValues("T87888")); // 49
-

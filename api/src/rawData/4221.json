@@ -460,10 +460,10 @@
                     "aid": 238359
                 },
                 {
-                    "aid": 239361
+                    "aid": 234307
                 },
                 {
-                    "aid": 234307
+                    "aid": 239361
                 },
                 {
                     "aid": 236845
@@ -1948,10 +1948,10 @@
                     "aid": 238375
                 },
                 {
-                    "aid": 239362
+                    "aid": 234487
                 },
                 {
-                    "aid": 234487
+                    "aid": 239362
                 },
                 {
                     "aid": 239879
@@ -2869,9 +2869,6 @@
                 },
                 {
                     "aid": 232407
-                },
-                {
-                    "aid": 227386
                 },
                 {
                     "aid": 216556
@@ -5272,10 +5269,10 @@
                     "aid": 227039
                 },
                 {
-                    "aid": 240393
+                    "aid": 240394
                 },
                 {
-                    "aid": 240394
+                    "aid": 240393
                 },
                 {
                     "aid": 226617
@@ -5377,10 +5374,10 @@
                     "aid": 229624
                 },
                 {
-                    "aid": 229619
+                    "aid": 229617
                 },
                 {
-                    "aid": 229617
+                    "aid": 229619
                 },
                 {
                     "aid": 229910
@@ -6493,9 +6490,6 @@
                     "aid": 231607
                 },
                 {
-                    "aid": 232212
-                },
-                {
                     "aid": 232384
                 },
                 {
@@ -7464,9 +7458,6 @@
                 },
                 {
                     "aid": 223565
-                },
-                {
-                    "aid": 240205
                 },
                 {
                     "aid": 227022
@@ -8806,10 +8797,10 @@
                     "aid": 227651
                 },
                 {
-                    "aid": 227649
+                    "aid": 227650
                 },
                 {
-                    "aid": 227650
+                    "aid": 227649
                 },
                 {
                     "aid": 229601
@@ -9932,6 +9923,9 @@
                 },
                 {
                     "aid": 234352
+                },
+                {
+                    "aid": 223881
                 },
                 {
                     "aid": 224913
@@ -11318,13 +11312,13 @@
                     "aid": 227638
                 },
                 {
-                    "aid": 227649
-                },
-                {
                     "aid": 227658
                 },
                 {
                     "aid": 227650
+                },
+                {
+                    "aid": 227649
                 },
                 {
                     "aid": 236157
@@ -11649,10 +11643,10 @@
                     "aid": 234352
                 },
                 {
-                    "aid": 223881
+                    "aid": 234360
                 },
                 {
-                    "aid": 234360
+                    "aid": 223881
                 },
                 {
                     "aid": 224916
@@ -13959,10 +13953,10 @@
                     "aid": 238382
                 },
                 {
-                    "aid": 238355
+                    "aid": 238371
                 },
                 {
-                    "aid": 238371
+                    "aid": 238355
                 },
                 {
                     "aid": 234292
@@ -14213,6 +14207,9 @@
                     "aid": 232405
                 },
                 {
+                    "aid": 227386
+                },
+                {
                     "aid": 216680
                 },
                 {
@@ -14446,6 +14443,9 @@
             "dor": 118,
             "ars": [
                 {
+                    "aid": 232212
+                },
+                {
                     "aid": 238384
                 },
                 {
@@ -14506,6 +14506,9 @@
             "nm": "Compound (Guest) 50+ Men",
             "dor": 125,
             "ars": [
+                {
+                    "aid": 240205
+                },
                 {
                     "aid": 232101
                 },
@@ -14658,9 +14661,6 @@
             "nm": "Barebow (Guest) U21 Women",
             "dor": 134,
             "ars": [
-                {
-                    "aid": 223881
-                },
                 {
                     "aid": 227899
                 },
@@ -22163,7 +22163,7 @@
                 9167
             ],
             "cnd": "CM",
-            "tm": "",
+            "tm": "Michigan",
             "alt": "232858",
             "rtl": "",
             "tbs": ""
@@ -22181,7 +22181,7 @@
                 9167
             ],
             "cnd": "CM",
-            "tm": "",
+            "tm": "Michigan",
             "alt": "121911",
             "rtl": "",
             "tbs": ""
@@ -22199,7 +22199,7 @@
                 9167
             ],
             "cnd": "CM",
-            "tm": "",
+            "tm": "Michigan",
             "alt": "232893",
             "rtl": "",
             "tbs": ""
@@ -22217,7 +22217,7 @@
                 9166
             ],
             "cnd": "LM",
-            "tm": "",
+            "tm": "Michigan",
             "alt": "231728",
             "rtl": "",
             "tbs": ""
@@ -22235,7 +22235,7 @@
                 9166
             ],
             "cnd": "BM",
-            "tm": "",
+            "tm": "Michigan",
             "alt": "232446",
             "rtl": "",
             "tbs": ""
@@ -25673,7 +25673,7 @@
                 9165
             ],
             "cnd": "B5M",
-            "tm": "",
+            "tm": "Ohio",
             "alt": "206353",
             "rtl": "",
             "tbs": ""
@@ -25691,7 +25691,7 @@
                 9167
             ],
             "cnd": "BM",
-            "tm": "",
+            "tm": "Michigan",
             "alt": "230891",
             "rtl": "",
             "tbs": ""
@@ -25709,7 +25709,7 @@
                 9167
             ],
             "cnd": "CM",
-            "tm": "",
+            "tm": "Michigan",
             "alt": "232856",
             "rtl": "",
             "tbs": ""
@@ -25726,8 +25726,8 @@
                 9165,
                 9167
             ],
-            "cnd": "C5M",
-            "tm": "",
+            "cnd": "CG5M",
+            "tm": "Michigan",
             "alt": "215448",
             "rtl": "",
             "tbs": ""
@@ -25745,7 +25745,7 @@
                 9167
             ],
             "cnd": "B6W",
-            "tm": "",
+            "tm": "Michigan",
             "alt": "210214",
             "rtl": "",
             "tbs": ""
@@ -34585,8 +34585,8 @@
                 9146
             ],
             "cnd": "RGM",
-            "tm": "N/A",
-            "alt": "N/A",
+            "tm": "Massachuetts",
+            "alt": "7459",
             "rtl": "",
             "tbs": ""
         },
@@ -41034,7 +41034,7 @@
             ],
             "cnd": "RM",
             "tm": "",
-            "alt": "",
+            "alt": "232353",
             "rtl": "",
             "tbs": ""
         },
@@ -41050,7 +41050,7 @@
             ],
             "cnd": "RU21W",
             "tm": "",
-            "alt": "",
+            "alt": "232429",
             "rtl": "",
             "tbs": ""
         },
@@ -41066,7 +41066,7 @@
             ],
             "cnd": "FU18M",
             "tm": "",
-            "alt": "",
+            "alt": "230718",
             "rtl": "",
             "tbs": ""
         },
@@ -41082,7 +41082,7 @@
             ],
             "cnd": "RUSW",
             "tm": "Texas A\u0026M University- Target Archers (Tamu)",
-            "alt": "",
+            "alt": "232153",
             "rtl": "",
             "tbs": ""
         },
@@ -43131,8 +43131,8 @@
                 9105
             ],
             "cnd": "BW",
-            "tm": "",
-            "alt": "",
+            "tm": "New Jersey",
+            "alt": "225160",
             "rtl": "",
             "tbs": ""
         },
@@ -43544,8 +43544,8 @@
                 9103,
                 9106
             ],
-            "cnd": "CUJW",
-            "tm": "St. John's University",
+            "cnd": "CGUJW",
+            "tm": "New York",
             "alt": "222894",
             "rtl": "",
             "tbs": ""
@@ -46209,8 +46209,8 @@
                 9106
             ],
             "cnd": "C5M",
-            "tm": "",
-            "alt": "",
+            "tm": "New Jersey",
+            "alt": "184795",
             "rtl": "",
             "tbs": ""
         },
@@ -46227,8 +46227,8 @@
                 9106
             ],
             "cnd": "RU18M",
-            "tm": "",
-            "alt": "",
+            "tm": "Pennsylvania",
+            "alt": "209718",
             "rtl": "",
             "tbs": ""
         },
@@ -51572,6 +51572,24 @@
             "rtl": "",
             "tbs": ""
         },
+        "229684": {
+            "aid": 229684,
+            "fnm": "Francesca",
+            "lnm": "Benavidez",
+            "tgt": [
+                "8B",
+                "9D"
+            ],
+            "tnl": [
+                9037,
+                9038
+            ],
+            "cnd": "BW",
+            "tm": "New Mexico",
+            "alt": "214944-B",
+            "rtl": "",
+            "tbs": ""
+        },
         "229683": {
             "aid": 229683,
             "fnm": "Francesca",
@@ -51586,7 +51604,7 @@
             ],
             "cnd": "RW",
             "tm": "New Mexico",
-            "alt": "214944-B",
+            "alt": "214944",
             "rtl": "",
             "tbs": ""
         },
@@ -51659,24 +51677,6 @@
             "cnd": "BW",
             "tm": "New Mexico",
             "alt": "230783",
-            "rtl": "",
-            "tbs": ""
-        },
-        "229684": {
-            "aid": 229684,
-            "fnm": "Francesca",
-            "lnm": "Benavidez",
-            "tgt": [
-                "8B",
-                "9D"
-            ],
-            "tnl": [
-                9037,
-                9038
-            ],
-            "cnd": "BW",
-            "tm": "New Mexico",
-            "alt": "214944",
             "rtl": "",
             "tbs": ""
         },
@@ -53255,7 +53255,7 @@
                 8997
             ],
             "cnd": "BUSM",
-            "tm": "San Diego Miramar College",
+            "tm": "California",
             "alt": "217025",
             "rtl": "",
             "tbs": ""
@@ -54087,7 +54087,7 @@
                 8998
             ],
             "cnd": "CUJM",
-            "tm": "University of California, Berkeley- Archery Team",
+            "tm": "California",
             "alt": "204630",
             "rtl": "",
             "tbs": ""
@@ -54359,7 +54359,7 @@
                 8997
             ],
             "cnd": "RUSM",
-            "tm": "Archery Club @ UC Riverside",
+            "tm": "California",
             "alt": "229481",
             "rtl": "",
             "tbs": ""
@@ -54663,7 +54663,7 @@
                 8998
             ],
             "cnd": "RUSM",
-            "tm": "University of California, Berkeley- Archery Team",
+            "tm": "California",
             "alt": "187058",
             "rtl": "",
             "tbs": ""
@@ -56503,7 +56503,7 @@
                 8998
             ],
             "cnd": "BGUSW",
-            "tm": "University of California, Berkeley- Archery Team",
+            "tm": "California",
             "alt": "214930",
             "rtl": "",
             "tbs": ""
@@ -56615,7 +56615,7 @@
                 8998
             ],
             "cnd": "BUSW",
-            "tm": "University of California, Berkeley- Archery Team",
+            "tm": "California",
             "alt": "222903",
             "rtl": "",
             "tbs": ""
@@ -57207,7 +57207,7 @@
                 8997
             ],
             "cnd": "RUSW",
-            "tm": "Archery Club @ UC Riverside",
+            "tm": "California",
             "alt": "230246",
             "rtl": "",
             "tbs": ""
@@ -66214,7 +66214,7 @@
             "tnl": [
                 8971
             ],
-            "cnd": "RU18W",
+            "cnd": "RGU18W",
             "tm": "Utah",
             "alt": "202944",
             "rtl": "",
@@ -68653,7 +68653,7 @@
             ],
             "cnd": "CM",
             "tm": "Kentucky",
-            "alt": "",
+            "alt": "173384",
             "rtl": "",
             "tbs": ""
         },
@@ -69452,7 +69452,7 @@
             ],
             "cnd": "CUSM",
             "tm": "Southeastern Illinois College Archery Team",
-            "alt": "",
+            "alt": "211807",
             "rtl": "",
             "tbs": ""
         },
@@ -72663,7 +72663,7 @@
                 8897,
                 8900
             ],
-            "cnd": "BGUJW",
+            "cnd": "BUJW",
             "tm": "Wabash Valley College",
             "alt": "217872",
             "rtl": "",
@@ -78201,221 +78201,17 @@
     "tdt": "Jan 10, 2025 - Feb 23, 2025",
     "tlc": "United States",
     "tnl": {
-        "8895": {
-            "id": 8895,
-            "nm": "Kentucky, Jan 31, 6:00pm"
+        "9168": {
+            "id": 9168,
+            "nm": "Virginia, Feb 21-22, 4:00pm"
         },
-        "8896": {
-            "id": 8896,
-            "nm": "Kentucky, Feb 1, 8:00am"
+        "9169": {
+            "id": 9169,
+            "nm": "Virginia, Feb 22-23, 8:00am"
         },
-        "8897": {
-            "id": 8897,
-            "nm": "Kentucky, Feb 1, 1:00pm"
-        },
-        "8898": {
-            "id": 8898,
-            "nm": "Kentucky, Feb 1, 6:00pm"
-        },
-        "8899": {
-            "id": 8899,
-            "nm": "Kentucky, Feb 2, 8:00am"
-        },
-        "8900": {
-            "id": 8900,
-            "nm": "Kentucky, Feb 2, 1:00pm"
-        },
-        "8970": {
-            "id": 8970,
-            "nm": "Utah, Feb 8-9, 9:00am"
-        },
-        "8971": {
-            "id": 8971,
-            "nm": "Utah, Feb 8-9, 2:00pm"
-        },
-        "8997": {
-            "id": 8997,
-            "nm": "Chula Vista, Feb 7-8, 6:00pm"
-        },
-        "8998": {
-            "id": 8998,
-            "nm": "Chula Vista, Feb 8-9, 8:00am"
-        },
-        "8999": {
-            "id": 8999,
-            "nm": "Chula Vista, Feb 8-9, 1:00pm"
-        },
-        "8716": {
-            "id": 8716,
-            "nm": "Chula Vista, Jan 11-12, 8:00am"
-        },
-        "8717": {
-            "id": 8717,
-            "nm": "Chula Vista, Jan 11, 6:00pm \u0026 Jan 12 1:00pm"
-        },
-        "8975": {
-            "id": 8975,
-            "nm": "Florida, Feb 6-7, 1:00pm"
-        },
-        "8976": {
-            "id": 8976,
-            "nm": "Florida, Feb 6-7, 6:00pm"
-        },
-        "8977": {
-            "id": 8977,
-            "nm": "Florida, Feb 8-9, 8:00am"
-        },
-        "8978": {
-            "id": 8978,
-            "nm": "Florida, Feb 8-9, 1:00pm"
-        },
-        "8805": {
-            "id": 8805,
-            "nm": "Yankton, Jan 18-19, 9:00am"
-        },
-        "8806": {
-            "id": 8806,
-            "nm": "Yankton, Jan 18-19, 1:00pm"
-        },
-        "9034": {
-            "id": 9034,
-            "nm": "New Mexico, Feb 7, 5:00pm"
-        },
-        "9035": {
-            "id": 9035,
-            "nm": "New Mexico, Feb 8, 9:00am"
-        },
-        "9036": {
-            "id": 9036,
-            "nm": "New Mexico, Feb 8, 2:00pm"
-        },
-        "9037": {
-            "id": 9037,
-            "nm": "New Mexico, Feb 9, 9:00am"
-        },
-        "9038": {
-            "id": 9038,
-            "nm": "New Mexico, Feb 9, 2:00pm"
-        },
-        "9058": {
-            "id": 9058,
-            "nm": "Pennsylvania, Feb 8-9, 8:00am"
-        },
-        "9059": {
-            "id": 9059,
-            "nm": "Pennsylvania, Feb 8-9, 12:00pm"
-        },
-        "9060": {
-            "id": 9060,
-            "nm": "Pennsylvania, Feb 8-9, 4:00pm"
-        },
-        "9063": {
-            "id": 9063,
-            "nm": "Mississippi, Feb 7, 5:00pm"
-        },
-        "9064": {
-            "id": 9064,
-            "nm": "Mississippi, Feb 8, 8:00am"
-        },
-        "9065": {
-            "id": 9065,
-            "nm": "Mississippi, Feb 8, 1:00pm"
-        },
-        "9078": {
-            "id": 9078,
-            "nm": "Mississippi, Feb 8, 5:00pm"
-        },
-        "9079": {
-            "id": 9079,
-            "nm": "Mississippi, Feb 9, 8:00am"
-        },
-        "9080": {
-            "id": 9080,
-            "nm": "Mississippi, Feb 9, 1:00pm"
-        },
-        "9102": {
-            "id": 9102,
-            "nm": "New Jersey, Feb 14, 5:00pm"
-        },
-        "9103": {
-            "id": 9103,
-            "nm": "New Jersey, Feb 15, 8:00am"
-        },
-        "9104": {
-            "id": 9104,
-            "nm": "New Jersey, Feb 15, 1:00pm"
-        },
-        "9105": {
-            "id": 9105,
-            "nm": "New Jersey, Feb 15, 6:00pm"
-        },
-        "9106": {
-            "id": 9106,
-            "nm": "New Jersey, Feb 16, 8:00am"
-        },
-        "9107": {
-            "id": 9107,
-            "nm": "New Jersey, Feb 16, 1:00pm"
-        },
-        "9108": {
-            "id": 9108,
-            "nm": "Chula Vista, Feb 15, 2:00pm \u0026 Feb 16, 9:00am"
-        },
-        "9126": {
-            "id": 9126,
-            "nm": "Texas, Feb 21, 8:00am \u0026 Feb 23, 9:00am"
-        },
-        "9127": {
-            "id": 9127,
-            "nm": "Texas, Feb 21, 6:00pm \u0026 Feb 22, 8:00am"
-        },
-        "9128": {
-            "id": 9128,
-            "nm": "Texas, Feb 22, 6:00pm \u0026 Feb 23, 1:00pm"
-        },
-        "9133": {
-            "id": 9133,
-            "nm": "Minnesota, Feb 22-23, 9:00am"
-        },
-        "9134": {
-            "id": 9134,
-            "nm": "Minnesota, Feb 22-23, 1:00pm"
-        },
-        "9142": {
-            "id": 9142,
-            "nm": "Massachusetts, Feb 21, 12:30pm Friday"
-        },
-        "9143": {
-            "id": 9143,
-            "nm": "Massachusetts, Feb 21, 5:00pm Friday"
-        },
-        "9144": {
-            "id": 9144,
-            "nm": "Massachusetts, Feb 22, 8:00am Saturday"
-        },
-        "9145": {
-            "id": 9145,
-            "nm": "Massachusetts, Feb 22, 12:30pm Saturday"
-        },
-        "9146": {
-            "id": 9146,
-            "nm": "Massachusetts, Feb 22, 5:00pm Saturday"
-        },
-        "9147": {
-            "id": 9147,
-            "nm": "Massachusetts, Feb 23, 8:00am Sunday"
-        },
-        "9148": {
-            "id": 9148,
-            "nm": "Massachusetts, Feb 23, 12:30pm Sunday"
-        },
-        "9151": {
-            "id": 9151,
-            "nm": "Illinois, Feb 22-23, 8:45am"
-        },
-        "9152": {
-            "id": 9152,
-            "nm": "Illinois, Feb 22-23, 1:15pm"
+        "9170": {
+            "id": 9170,
+            "nm": "Virginia, Feb 22-23, 12:00pm"
         },
         "9161": {
             "id": 9161,
@@ -78445,17 +78241,221 @@
             "id": 9167,
             "nm": "Michigan, Feb 23, 12:30pm"
         },
-        "9168": {
-            "id": 9168,
-            "nm": "Virginia, Feb 21-22, 4:00pm"
+        "9151": {
+            "id": 9151,
+            "nm": "Illinois, Feb 22-23, 8:45am"
         },
-        "9169": {
-            "id": 9169,
-            "nm": "Virginia, Feb 22-23, 8:00am"
+        "9152": {
+            "id": 9152,
+            "nm": "Illinois, Feb 22-23, 1:15pm"
         },
-        "9170": {
-            "id": 9170,
-            "nm": "Virginia, Feb 22-23, 12:00pm"
+        "9142": {
+            "id": 9142,
+            "nm": "Massachusetts, Feb 21, 12:30pm Friday"
+        },
+        "9143": {
+            "id": 9143,
+            "nm": "Massachusetts, Feb 21, 5:00pm Friday"
+        },
+        "9144": {
+            "id": 9144,
+            "nm": "Massachusetts, Feb 22, 8:00am Saturday"
+        },
+        "9145": {
+            "id": 9145,
+            "nm": "Massachusetts, Feb 22, 12:30pm Saturday"
+        },
+        "9146": {
+            "id": 9146,
+            "nm": "Massachusetts, Feb 22, 5:00pm Saturday"
+        },
+        "9147": {
+            "id": 9147,
+            "nm": "Massachusetts, Feb 23, 8:00am Sunday"
+        },
+        "9148": {
+            "id": 9148,
+            "nm": "Massachusetts, Feb 23, 12:30pm Sunday"
+        },
+        "9133": {
+            "id": 9133,
+            "nm": "Minnesota, Feb 22-23, 9:00am"
+        },
+        "9134": {
+            "id": 9134,
+            "nm": "Minnesota, Feb 22-23, 1:00pm"
+        },
+        "9126": {
+            "id": 9126,
+            "nm": "Texas, Feb 21, 8:00am \u0026 Feb 23, 9:00am"
+        },
+        "9127": {
+            "id": 9127,
+            "nm": "Texas, Feb 21, 6:00pm \u0026 Feb 22, 8:00am"
+        },
+        "9128": {
+            "id": 9128,
+            "nm": "Texas, Feb 22, 6:00pm \u0026 Feb 23, 1:00pm"
+        },
+        "9108": {
+            "id": 9108,
+            "nm": "Chula Vista, Feb 15, 2:00pm \u0026 Feb 16, 9:00am"
+        },
+        "9102": {
+            "id": 9102,
+            "nm": "New Jersey, Feb 14, 5:00pm"
+        },
+        "9103": {
+            "id": 9103,
+            "nm": "New Jersey, Feb 15, 8:00am"
+        },
+        "9104": {
+            "id": 9104,
+            "nm": "New Jersey, Feb 15, 1:00pm"
+        },
+        "9105": {
+            "id": 9105,
+            "nm": "New Jersey, Feb 15, 6:00pm"
+        },
+        "9106": {
+            "id": 9106,
+            "nm": "New Jersey, Feb 16, 8:00am"
+        },
+        "9107": {
+            "id": 9107,
+            "nm": "New Jersey, Feb 16, 1:00pm"
+        },
+        "9063": {
+            "id": 9063,
+            "nm": "Mississippi, Feb 7, 5:00pm"
+        },
+        "9064": {
+            "id": 9064,
+            "nm": "Mississippi, Feb 8, 8:00am"
+        },
+        "9065": {
+            "id": 9065,
+            "nm": "Mississippi, Feb 8, 1:00pm"
+        },
+        "9078": {
+            "id": 9078,
+            "nm": "Mississippi, Feb 8, 5:00pm"
+        },
+        "9079": {
+            "id": 9079,
+            "nm": "Mississippi, Feb 9, 8:00am"
+        },
+        "9080": {
+            "id": 9080,
+            "nm": "Mississippi, Feb 9, 1:00pm"
+        },
+        "9058": {
+            "id": 9058,
+            "nm": "Pennsylvania, Feb 8-9, 8:00am"
+        },
+        "9059": {
+            "id": 9059,
+            "nm": "Pennsylvania, Feb 8-9, 12:00pm"
+        },
+        "9060": {
+            "id": 9060,
+            "nm": "Pennsylvania, Feb 8-9, 4:00pm"
+        },
+        "9034": {
+            "id": 9034,
+            "nm": "New Mexico, Feb 7, 5:00pm"
+        },
+        "9035": {
+            "id": 9035,
+            "nm": "New Mexico, Feb 8, 9:00am"
+        },
+        "9036": {
+            "id": 9036,
+            "nm": "New Mexico, Feb 8, 2:00pm"
+        },
+        "9037": {
+            "id": 9037,
+            "nm": "New Mexico, Feb 9, 9:00am"
+        },
+        "9038": {
+            "id": 9038,
+            "nm": "New Mexico, Feb 9, 2:00pm"
+        },
+        "8997": {
+            "id": 8997,
+            "nm": "Chula Vista, Feb 7-8, 6:00pm"
+        },
+        "8998": {
+            "id": 8998,
+            "nm": "Chula Vista, Feb 8-9, 8:00am"
+        },
+        "8999": {
+            "id": 8999,
+            "nm": "Chula Vista, Feb 8-9, 1:00pm"
+        },
+        "8975": {
+            "id": 8975,
+            "nm": "Florida, Feb 6-7, 1:00pm"
+        },
+        "8976": {
+            "id": 8976,
+            "nm": "Florida, Feb 6-7, 6:00pm"
+        },
+        "8977": {
+            "id": 8977,
+            "nm": "Florida, Feb 8-9, 8:00am"
+        },
+        "8978": {
+            "id": 8978,
+            "nm": "Florida, Feb 8-9, 1:00pm"
+        },
+        "8970": {
+            "id": 8970,
+            "nm": "Utah, Feb 8-9, 9:00am"
+        },
+        "8971": {
+            "id": 8971,
+            "nm": "Utah, Feb 8-9, 2:00pm"
+        },
+        "8895": {
+            "id": 8895,
+            "nm": "Kentucky, Jan 31, 6:00pm"
+        },
+        "8896": {
+            "id": 8896,
+            "nm": "Kentucky, Feb 1, 8:00am"
+        },
+        "8897": {
+            "id": 8897,
+            "nm": "Kentucky, Feb 1, 1:00pm"
+        },
+        "8898": {
+            "id": 8898,
+            "nm": "Kentucky, Feb 1, 6:00pm"
+        },
+        "8899": {
+            "id": 8899,
+            "nm": "Kentucky, Feb 2, 8:00am"
+        },
+        "8900": {
+            "id": 8900,
+            "nm": "Kentucky, Feb 2, 1:00pm"
+        },
+        "8805": {
+            "id": 8805,
+            "nm": "Yankton, Jan 18-19, 9:00am"
+        },
+        "8806": {
+            "id": 8806,
+            "nm": "Yankton, Jan 18-19, 1:00pm"
+        },
+        "8716": {
+            "id": 8716,
+            "nm": "Chula Vista, Jan 11-12, 8:00am"
+        },
+        "8717": {
+            "id": 8717,
+            "nm": "Chula Vista, Jan 11, 6:00pm \u0026 Jan 12 1:00pm"
         }
     },
     "nos": 2,
