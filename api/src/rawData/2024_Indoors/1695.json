@@ -1,0 +1,32 @@
+{
+    "url": "https://resultsapi.herokuapp.com/tournaments/1695",
+    "id": 1695,
+    "tournament_name": "55th USA Archery Indoor Nationals - Combined Results",
+    "location": "United States",
+    "start_date": "2024-01-04",
+    "end_date": "2024-02-25",
+    "updated_at": "2024-04-09T02:53:27.888Z",
+    "limg": "main_logo.png",
+    "rimg": null,
+    "bimg": "bottom_banner.png",
+    "msg": "Awards for the top 3 archers in each category will be mailed to the athlete's address on file. These will be mailed out over the months of March \u0026 April.",
+    "msg_link": "",
+    "events": [
+        {
+            "id": 2727,
+            "display_order": 1,
+            "event_type": "CombinedRankingEvent",
+            "event_name": "Combined Class and Division Results",
+            "msg": "Awards for the top 3 archers in each category will be mailed to the athlete's address on file. These will be mailed out over the months of March \u0026 April.",
+            "msg_link": ""
+        },
+        {
+            "id": 2728,
+            "display_order": 2,
+            "event_type": "CombinedRankingEvent",
+            "event_name": "Combined Finals Rankings",
+            "msg": "Awards for the top 3 archers in each category will be mailed to the athlete's address on file. These will be mailed out over the months of March \u0026 April.",
+            "msg_link": ""
+        }
+    ]
+}
