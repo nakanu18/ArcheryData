@@ -10,6 +10,11 @@ const CACHE_TTL = 3600;
 
 app.use(express.json()); // Middleware to parse JSON bodies
 
+//
+// API Data Types
+//
+
+// rosterURL
 type Roster = {
   url: string;
   id: number;
@@ -39,6 +44,7 @@ type Roster = {
   };
 };
 
+// scoresURL
 type Scores = {
   url: string;
   ars: {
@@ -50,83 +56,82 @@ type Scores = {
 // Processed Data Types
 //
 
+type ArcheryDB = {
+  archers: Archer[];
+  competitions: {
+    [key: string]: Competition;
+  };
+}
+
 type Archer = {
   aid: number;
   firstName: string;
   lastName: string;
-  competitions: {
-    id: number;
-    name: string;
-    category: string;
-    arrows: string;
-    score: number;
-  }[];
+  // competitions: number[];
 }
 
-if (process.env.NODE_ENV === 'development') {
-  console.log("API: flushing Redis cache");
-  redisClient.flushall();
+type Competition = {
+  id: number;
+  name: string;
+  categories: CompetitionCategory[];
 }
 
-app.get('/api/bm', async (req: Request, res: Response) => {
-  const rosterURL = 'https://resultsapi.herokuapp.com/events/4221';
-  const scoresURL = 'https://resultsapi.herokuapp.com/events/4221/scores';
+type CompetitionCategory = {
+  name: string;
+  archers: {
+    [key: string]: {
+      arrows: string;
+      score: number;
+    };
+  }
+}
 
+// if (process.env.NODE_ENV === 'development') {
+//   console.log("API: flushing Redis cache");
+//   redisClient.flushall();
+// }
+
+enum CategoryType {
+  BM = "Barebow Senior Men",
+  BW = "Barebow Senior Women",
+}
+
+const rosterURL = 'https://resultsapi.herokuapp.com/events/4221';
+const scoresURL = 'https://resultsapi.herokuapp.com/events/4221/scores';
+
+app.get('/api/archers', async (req: Request, res: Response) => {
   try {
     const [roster, scores]: [Roster, Scores] = await Promise.all([
       fetchOrCacheData(rosterURL, 'roster'),
       fetchOrCacheData(scoresURL, 'scores_4221')
     ]);
 
-    const barebowSeniorMen = roster.cgs.find(group => group.nm === 'Barebow Senior Men');
-    if (!barebowSeniorMen) {
-      throw new Error('Barebow Senior Men category not found');
-    }
+    const archers = buildArchers(roster);
+    const competitions: { [key: string]: Competition } = {};
+    competitions["4221"] = {
+      id: roster.id,
+      name: roster.enm,
+      categories: roster.cgs.map(category => ({
+        name: category.nm,
+        archers: category.ars.reduce((acc, archer) => {
+          acc[archer.aid] = {
+            arrows: scores.ars[archer.aid] || '',
+            score: sumNumericValues(scores.ars[archer.aid] || '')
+          };
+          return acc;
+        }, {} as { [key: string]: { arrows: string; score: number } })
+      })),
+    };
 
-    const archers: Archer[] = barebowSeniorMen.ars.map(ar => {
-      const participant = roster.rps[ar.aid];
-      return {
-        aid: participant.aid,
-        firstName: participant.fnm,
-        lastName: participant.lnm,
-        competitions: [{
-          id: roster.id,
-          name: roster.enm,
-          category: barebowSeniorMen.nm,
-          arrows: scores.ars[participant.aid],
-          score: sumNumericValues(scores.ars[participant.aid])
-        }]
-      };
-    });
+    // Combine into ArcheryDB
+    const archeryDB: ArcheryDB = {
+      archers,
+      competitions
+    };
 
-    res.json(archers);
+    res.json(archeryDB);    
   } catch (error) {
     console.error('Error fetching data:', error);
-    res.status(500).json({ error: 'Error fetching data' });
-  }
-});
-
-app.get('/api/bm/alex', async (req: Request, res: Response) => {
-  try {
-    const rosterURL = 'https://resultsapi.herokuapp.com/events/4221';
-    const scoresURL = 'https://resultsapi.herokuapp.com/events/4221/scores';
-
-    const [roster, scores]: [Roster, Scores] = await Promise.all([
-      fetchOrCacheData(rosterURL, 'roster'),
-      fetchOrCacheData(scoresURL, 'scores_4221')
-    ]);
-
-    const aid = findAidByName(roster, 'Alex', 'de Vera');
-    if (aid === -1) {
-      throw new Error('Player not found');
-    }
-    console.log("API: Player 1", aid);
-    console.log("API: Player 1", roster.rps[aid]);
-    console.log("API: Player 1", sumNumericValues(scores.ars[aid]));
-
-    res.json(scores);
-  } catch (error) {
-    console.error('Error fetching roster data:', error);
     res.status(500).json({ error: 'Error fetching data' });
   }
 });
@@ -162,14 +167,12 @@ const fetchOrCacheData = async (url: string, redisKey: string) => {
   return data;
 };
 
-function findAidByName(roster: Roster, firstName: string, lastName: string): number {
-  for (const key in roster.rps) {
-    const entry = roster.rps[key];
-    if (entry.fnm === firstName && entry.lnm === lastName) {
-      return entry.aid;
-    }
-  }
-  return -1;
+const buildArchers = (roster: Roster): Archer[] => {
+  return Object.values(roster.rps).map(entry => ({
+    aid: entry.aid,
+    firstName: entry.fnm,
+    lastName: entry.lnm,
+  }));
 }
 
 function sumNumericValues(input: string): number {
