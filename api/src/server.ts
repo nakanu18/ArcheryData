@@ -14,8 +14,32 @@ app.use(express.json()); // Middleware to parse JSON bodies
 // API Data Types
 //
 
-// rosterURL
-type Roster = {
+type TournamentData = {
+  URL: string;
+  id: number;
+  tournament_name: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  updated_at: string;
+  limg: string;
+  rimg: string;
+  bimg: string;
+  msg: string;
+  msg_link: string;
+  events: Tournament_EventData[];
+}
+
+type Tournament_EventData = {
+  id: number;
+  display_order: number;
+  event_type: string;
+  event_name: string;
+  msg: string;
+  msg_link: string;
+}
+
+type EventData = {
   url: string;
   id: number;
   enm: string;
@@ -44,7 +68,6 @@ type Roster = {
   };
 };
 
-// scoresURL
 type Scores = {
   url: string;
   ars: {
@@ -58,32 +81,20 @@ type Scores = {
 
 type ArcheryDB = {
   archers: Archer[];
-  competitions: {
-    [key: string]: Competition;
-  };
+}
+
+type Tournament = {
+  id: number;
+  tournamentName: string;
+  events: number[];
 }
 
 type Archer = {
   aid: number;
+  alt: string;
   firstName: string;
   lastName: string;
-  // competitions: number[];
-}
-
-type Competition = {
-  id: number;
-  name: string;
-  categories: CompetitionCategory[];
-}
-
-type CompetitionCategory = {
-  name: string;
-  archers: {
-    [key: string]: {
-      arrows: string;
-      score: number;
-    };
-  }
+  events: number[]; // Taken from main tournament file - events[i].id
 }
 
 // if (process.env.NODE_ENV === 'development') {
@@ -96,40 +107,22 @@ enum CategoryType {
   BW = "Barebow Senior Women",
 }
 
-const rosterURL = 'https://resultsapi.herokuapp.com/events/4221';
-const scoresURL = 'https://resultsapi.herokuapp.com/events/4221/scores';
+const tournamentURL = "https://resultsapi.herokuapp.com/tournaments/";
+const eventURL = "https://resultsapi.herokuapp.com/events/";
 
 app.get('/api/archers', async (req: Request, res: Response) => {
   try {
-    const [roster, scores]: [Roster, Scores] = await Promise.all([
-      fetchOrCacheData(rosterURL, 'roster'),
-      fetchOrCacheData(scoresURL, 'scores_4221')
-    ]);
+    const tournaments = [1695, 2510];
+    let archers: { [alt: string]: Archer } = {};
 
-    const archers = buildArchers(roster);
-    const competitions: { [key: string]: Competition } = {};
-    competitions["4221"] = {
-      id: roster.id,
-      name: roster.enm,
-      categories: roster.cgs.map(category => ({
-        name: category.nm,
-        archers: category.ars.reduce((acc, archer) => {
-          acc[archer.aid] = {
-            arrows: scores.ars[archer.aid] || '',
-            score: sumNumericValues(scores.ars[archer.aid] || '')
-          };
-          return acc;
-        }, {} as { [key: string]: { arrows: string; score: number } })
-      })),
-    };
+    for (const tournament of tournaments) {
+      const tournamentData: TournamentData = await fetchOrCacheData(tournamentURL + tournament, `tournament_${tournament}`);
+      const eventId = tournamentData.events[0].id;
+      const eventData: EventData = await fetchOrCacheData(eventURL + eventId, `event_${eventId}`);
+      buildAllArchers(archers, eventData, eventId);
+    }
 
-    // Combine into ArcheryDB
-    const archeryDB: ArcheryDB = {
-      archers,
-      competitions
-    };
-
-    res.json(archeryDB);    
+    res.json(archers);
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).json({ error: 'Error fetching data' });
@@ -167,13 +160,20 @@ const fetchOrCacheData = async (url: string, redisKey: string) => {
   return data;
 };
 
-const buildArchers = (roster: Roster): Archer[] => {
-  return Object.values(roster.rps).map(entry => ({
-    aid: entry.aid,
-    firstName: entry.fnm,
-    lastName: entry.lnm,
-  }));
-}
+const buildAllArchers = (archers: { [alt: string]: Archer }, event: EventData, eventId: number) => {
+  Object.values(event.rps).forEach(entry => {
+    if (!archers[entry.alt]) {
+      archers[entry.alt] = {
+        aid: entry.aid,
+        alt: entry.alt,
+        firstName: entry.fnm,
+        lastName: entry.lnm,
+        events: []
+      };
+    }    
+    archers[entry.alt].events.push(eventId);
+  });
+};
 
 function sumNumericValues(input: string): number {
   // Replace 'M' with 0, 'T' with 10, and leave other characters as they are
