@@ -83,8 +83,9 @@ type Scores = {
 // Processed Data Types
 //
 
-type ArcheryDB = {
-  archers: Archer[];
+type ArcheryData = {
+  archers: { [alt: string]: Archer };
+  tournaments: { [id: string]: Tournament };
 }
 
 type Tournament = {
@@ -138,69 +139,7 @@ const eventURL = "https://resultsapi.herokuapp.com/events/";
 
 app.get('/api/archers', async (req: Request, res: Response) => {
   try {
-    const tournamentIds = [1695, 2510];
-    let archers: { [alt: string]: Archer } = {};
-    let tournaments: { [id: string]: Tournament } = {};
 
-    for (const tournamentId of tournamentIds) {
-      const tournamentIdStr = tournamentId.toString();
-      const tournamentData: TournamentData = await fetchData(tournamentURL + tournamentId, `tournament_` + tournamentIdStr);
-      const eventId = tournamentData.events[0].id;
-      const eventData: EventData = await fetchData(eventURL + eventId, `event_${eventId}`);
-      let aidToAlt: { [aid: string]: string } = {};
-
-      // Build all archers from the event data
-      console.log("Adding archers from tournamentId:", tournamentId);
-      buildAllArchers(archers, aidToAlt, eventData);
-
-      // Create the tournament data
-      let newTournament: Tournament = {
-        id: tournamentId,
-        tournamentName: tournamentData.tournament_name,
-        event: {
-          eventId: eventId,
-          eventName: eventData.enm,
-          categories: {}
-        }
-      };
-
-      // Loop through the categories in eventData
-      console.log("Processing Tournament:", tournamentData.tournament_name);
-      for (const category of eventData.cgs) {
-        newTournament.event.categories[category.nm] = {
-          categoryName: category.nm,
-          archers: {}
-        };
-
-        // console.log("    *", category.nm, "with", category.ars.length, "archers");
-
-        // Loop through the archers in a category
-        for (const archer of category.ars) {
-          const aid = archer.aid.toString();
-          const alt = aidToAlt[aid]; // Get the alt from the aid
-
-          // Add an archer to the tournament.event category
-          newTournament.event.categories[category.nm].archers[alt] = { // TODO: should this be using alt?
-            alt: alt,
-            firstName: archers[alt].firstName,
-            lastName: archers[alt].lastName,
-            fullName: `${archers[alt].firstName} ${archers[alt].lastName}`
-          };
-
-          // Update archers[alt] with the tournament result
-          if (!archers[alt].results) {
-            archers[alt].results = {};
-          }
-          archers[alt].results[tournamentIdStr] = {
-            tournamentId: tournamentId,
-            tournamentName: tournamentData.tournament_name,
-            eventId: eventId,
-            categoryName: category.nm
-          };
-        }
-      }
-      tournaments[tournamentIdStr] = newTournament;
-    }
 
     // // Find archer with alt 162635
     // const archerAlt = '162635';
@@ -210,7 +149,17 @@ app.get('/api/archers', async (req: Request, res: Response) => {
     //   console.log(`Archer with alt ${archerAlt} not found`);
     // }
 
-    res.json({ archers , tournaments });
+    let archeryData: ArcheryData;
+    let cachedData = await redisClient.get('archeryData');
+    if (cachedData) {
+      console.log("REDIS: cache hit for archeryData");
+      archeryData = JSON.parse(cachedData);
+    } else {
+      console.log("REDIS: cache miss for archeryData");
+      archeryData = await parseData();
+      await redisClient.setex('archeryData', CACHE_TTL, JSON.stringify(archeryData));
+    }
+    res.json(archeryData);
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).json({ error: 'Error fetching data' });
@@ -230,12 +179,12 @@ const fetchData = async (url: string, redisKey: string) => {
   // Check if data is cached
   const cachedData = await redisClient.get(redisKey);
   if (cachedData) {
-    console.log(`API: cache hit for ${redisKey}`);
+    console.log(`REDIS: cache hit for ${redisKey}`);
     return JSON.parse(cachedData);
   }
 
   // Fetch data from external API if not cached
-  console.log(`API: cache miss for ${redisKey}`);
+  console.log(`REDIS: cache miss for ${redisKey}`);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`API: failed to fetch data: ${response.statusText}`);
@@ -248,7 +197,29 @@ const fetchData = async (url: string, redisKey: string) => {
   return data;
 };
 
-const buildAllArchers = (archers: { [alt: string]: Archer }, aidToAlt: { [alt: string]: string}, eventData: EventData) => {
+const parseData = async (): Promise<ArcheryData> => {
+  const tournamentIds = [1695, 2510];
+  let archers: { [alt: string]: Archer } = {};
+  let tournaments: { [id: string]: Tournament } = {};
+
+  for (const tournamentId of tournamentIds) {
+    const tournamentData: TournamentData = await fetchData(tournamentURL + tournamentId, `tournament_` + tournamentId);
+    const eventId = tournamentData.events[0].id;
+    const eventData: EventData = await fetchData(eventURL + eventId, `event_${eventId}`);
+    let aidToAlt: { [aid: string]: string } = {};
+
+    // Build all archers from the event data
+    console.log("Adding archers from tournamentId:", tournamentId);
+    addArchers(archers, aidToAlt, eventData);
+
+    // Create the tournament data
+    tournaments[tournamentId] = createTournament(archers, aidToAlt, tournamentId, tournamentData, eventId, eventData);
+  }
+
+  return { archers, tournaments };
+}
+
+const addArchers = (archers: { [aid: string]: Archer }, aidToAlt: { [alt: string]: string }, eventData: EventData) => {
   Object.values(eventData.rps).forEach(archer => {
     if (!archers[archer.alt]) {
       archers[archer.alt] = {
@@ -259,9 +230,57 @@ const buildAllArchers = (archers: { [alt: string]: Archer }, aidToAlt: { [alt: s
         results: {}
       };
     }    
-    aidToAlt[archer.aid.toString()] = archer.alt;
+    aidToAlt[archer.aid] = archer.alt;
   });
 };
+
+const createTournament = (archers: { [aid: string]: Archer }, aidToAlt: { [aid: string]: string }, tournamentId: number, tournamentData: TournamentData, eventId: number, eventData: EventData): Tournament => {
+  let newTournament: Tournament = {
+    id: tournamentId,
+    tournamentName: tournamentData.tournament_name,
+    event: {
+      eventId: eventId,
+      eventName: eventData.enm,
+      categories: {}
+    }
+  };
+
+  // Loop through the categories in eventData
+  console.log("Processing Tournament:", tournamentData.tournament_name);
+  for (const category of eventData.cgs) {
+    newTournament.event.categories[category.nm] = {
+      categoryName: category.nm,
+      archers: {}
+    };
+
+    // console.log("    *", category.nm, "with", category.ars.length, "archers");
+
+    // Loop through the archers in a category
+    for (const archer of category.ars) {
+      const alt = aidToAlt[archer.aid]; // Get the alt from the aid
+
+      // Add an archer to the tournament.event category
+      newTournament.event.categories[category.nm].archers[alt] = { // TODO: should this be using alt?
+        alt: alt,
+        firstName: archers[alt].firstName,
+        lastName: archers[alt].lastName,
+        fullName: `${archers[alt].firstName} ${archers[alt].lastName}`
+      };
+
+      // Update archers[alt] with the tournament result
+      if (!archers[alt].results) {
+        archers[alt].results = {};
+      }
+      archers[alt].results[tournamentId] = {
+        tournamentId: tournamentId,
+        tournamentName: tournamentData.tournament_name,
+        eventId: eventId,
+        categoryName: category.nm
+      };
+    }
+  }
+  return newTournament;  
+}
 
 function sumNumericValues(input: string): number {
   // Replace 'M' with 0, 'T' with 10, and leave other characters as they are
