@@ -94,7 +94,7 @@ type Tournament = {
 }
 
 type Tournament_Event = {
-  id: number;
+  eventId: number; // event id
   eventName: string;
   categories: {
     [categoryName: string]: Tournament_EventCategory;
@@ -113,7 +113,16 @@ type Archer = {
   firstName: string;
   lastName: string;
   fullName: string;
-  events?: number[]; // Taken from main tournament file - events[i].id
+  results?: {
+    [tournamentId: string]: Archer_Result;
+  }
+}
+
+type Archer_Result = {
+  tournamentId: number;
+  tournamentName: string;
+  eventId: number; // Taken from main tournament file - events[i].id
+  categoryName: string;
 }
 
 // if (process.env.NODE_ENV === 'development') {
@@ -142,45 +151,64 @@ app.get('/api/archers', async (req: Request, res: Response) => {
 
       // Build all archers from the event data
       console.log("Adding archers from tournamentId:", tournamentId);
-      buildAllArchers(archers, aidToAlt, eventData, eventId);
+      buildAllArchers(archers, aidToAlt, eventData);
 
       // Create the tournament data
       let newTournament: Tournament = {
         id: tournamentId,
         tournamentName: tournamentData.tournament_name,
         event: {
-          id: eventId,
+          eventId: eventId,
           eventName: eventData.enm,
           categories: {}
         }
       };
 
-      // Add categories to the tournament data
+      // Loop through the categories in eventData
       console.log("Processing Tournament:", tournamentData.tournament_name);
       for (const category of eventData.cgs) {
-        const categoryName = category.nm;
-        newTournament.event.categories[categoryName] = {
-          categoryName: categoryName,
+        newTournament.event.categories[category.nm] = {
+          categoryName: category.nm,
           archers: {}
         };
 
-        console.log("    *", categoryName, "with", category.ars.length, "archers");
+        // console.log("    *", category.nm, "with", category.ars.length, "archers");
 
-        // Populate the archers in the category
+        // Loop through the archers in a category
         for (const archer of category.ars) {
           const aid = archer.aid.toString();
           const alt = aidToAlt[aid]; // Get the alt from the aid
-          newTournament.event.categories[categoryName].archers[aid] = {
+
+          // Add an archer to the tournament.event category
+          newTournament.event.categories[category.nm].archers[alt] = { // TODO: should this be using alt?
             alt: alt,
             firstName: archers[alt].firstName,
             lastName: archers[alt].lastName,
             fullName: `${archers[alt].firstName} ${archers[alt].lastName}`
           };
-          // console.log(`Processing Archer: aid=${aid}, alt=${alt} - ${archers[alt].fullName}`);
+
+          // Update archers[alt] with the tournament result
+          if (!archers[alt].results) {
+            archers[alt].results = {};
+          }
+          archers[alt].results[tournamentIdStr] = {
+            tournamentId: tournamentId,
+            tournamentName: tournamentData.tournament_name,
+            eventId: eventId,
+            categoryName: category.nm
+          };
         }
       }
       tournaments[tournamentIdStr] = newTournament;
     }
+
+    // // Find archer with alt 162635
+    // const archerAlt = '162635';
+    // if (archers[archerAlt]) {
+    //   console.log(`Archer with alt ${archerAlt}:`, archers[archerAlt]);
+    // } else {
+    //   console.log(`Archer with alt ${archerAlt} not found`);
+    // }
 
     res.json({ archers , tournaments });
   } catch (error) {
@@ -220,18 +248,17 @@ const fetchData = async (url: string, redisKey: string) => {
   return data;
 };
 
-const buildAllArchers = (archers: { [alt: string]: Archer }, aidToAlt: { [alt: string]: string}, event: EventData, eventId: number) => {
-  Object.values(event.rps).forEach(archer => {
+const buildAllArchers = (archers: { [alt: string]: Archer }, aidToAlt: { [alt: string]: string}, eventData: EventData) => {
+  Object.values(eventData.rps).forEach(archer => {
     if (!archers[archer.alt]) {
       archers[archer.alt] = {
         alt: archer.alt,
         firstName: archer.fnm,
         lastName: archer.lnm,
         fullName: `${archer.fnm} ${archer.lnm}`,
-        events: []
+        results: {}
       };
     }    
-    archers[archer.alt].events?.push(eventId);
     aidToAlt[archer.aid.toString()] = archer.alt;
   });
 };
