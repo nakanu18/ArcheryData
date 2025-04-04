@@ -138,9 +138,9 @@ const tournamentURL = "https://resultsapi.herokuapp.com/tournaments/";
 const eventURL = "https://resultsapi.herokuapp.com/events/";
 
 app.get('/api/archers', async (req: Request, res: Response) => {
+  console.log("/api/archers");
+
   try {
-
-
     // // Find archer with alt 162635
     // const archerAlt = '162635';
     // if (archers[archerAlt]) {
@@ -152,10 +152,10 @@ app.get('/api/archers', async (req: Request, res: Response) => {
     let archeryData: ArcheryData;
     let cachedData = await redisClient.get('archeryData');
     if (cachedData) {
-      console.log("REDIS: cache hit for archeryData");
+      console.log("REDIS: hit - archeryData");
       archeryData = JSON.parse(cachedData);
     } else {
-      console.log("REDIS: cache miss for archeryData");
+      console.log("REDIS: miss - archeryData");
       archeryData = await parseData();
       await redisClient.setex('archeryData', CACHE_TTL, JSON.stringify(archeryData));
     }
@@ -164,6 +164,7 @@ app.get('/api/archers', async (req: Request, res: Response) => {
     console.error('Error fetching data:', error);
     res.status(500).json({ error: 'Error fetching data' });
   }
+  console.log("\n");
 });
 
 app.listen(port, () => {
@@ -175,16 +176,16 @@ app.listen(port, () => {
 //
 
 // Helper function to handle caching logic
-const fetchData = async (url: string, redisKey: string) => {
+const fetchDataFromEndpoint = async (url: string, redisKey: string) => {
   // Check if data is cached
   const cachedData = await redisClient.get(redisKey);
   if (cachedData) {
-    console.log(`REDIS: cache hit for ${redisKey}`);
+    console.log(`REDIS: hit - ${redisKey}`);
     return JSON.parse(cachedData);
   }
 
   // Fetch data from external API if not cached
-  console.log(`REDIS: cache miss for ${redisKey}`);
+  console.log(`REDIS: miss - ${redisKey}`);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`API: failed to fetch data: ${response.statusText}`);
@@ -203,9 +204,9 @@ const parseData = async (): Promise<ArcheryData> => {
   let tournaments: { [id: string]: Tournament } = {};
 
   for (const tournamentId of tournamentIds) {
-    const tournamentData: TournamentData = await fetchData(tournamentURL + tournamentId, `tournament_` + tournamentId);
+    const tournamentData: TournamentData = await fetchDataFromEndpoint(tournamentURL + tournamentId, `tournament_` + tournamentId);
     const eventId = tournamentData.events[0].id;
-    const eventData: EventData = await fetchData(eventURL + eventId, `event_${eventId}`);
+    const eventData: EventData = await fetchDataFromEndpoint(eventURL + eventId, `event_${eventId}`);
     let aidToAlt: { [aid: string]: string } = {};
 
     // Build all archers from the event data
